@@ -11,25 +11,32 @@ export interface QuizItem {
   isNiche: boolean;
 }
 export interface Quiz {
-  fetchErrors: string | null;
+  fetch: {
+    isLoading: boolean;
+    isError: boolean;
+    message: string;
+  };
   count: number;
   allQuizzes: QuizItem[];
   currentQuiz: number;
   userAnswers: string[];
 }
 
+export interface DurationState {
+  timeUp: number;
+  timeLeft: number;
+}
+
+export interface ModalState {
+  isOpen: boolean;
+  message: string;
+}
+
 export interface MainState {
-  duration: {
-    timeUp: number;
-    timeLeft: number;
-  };
+  duration: DurationState;
   difficulty: {
     value: string;
   };
   quiz: Quiz;
-}
-
-export interface DurationState {
-  timeUp: number;
-  timeLeft: number;
+  modal: ModalState;
 }

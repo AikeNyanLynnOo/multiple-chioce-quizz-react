@@ -1,5 +1,5 @@
 // REACT
-import { useEffect, useState } from "react";
+import { useEffect, useState, forwardRef } from "react";
 
 // MUI
 import Box from "@mui/material/Box";
@@ -9,6 +9,14 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "../styles/muiStyles";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
+import { TransitionProps } from "@mui/material/transitions";
+
 // CUSTOM FUMCTIONS
 import { fetchMetaData } from "../fetchers/fetchMetaData";
 import { fetchQuestions } from "../fetchers/fetchQuestions";
@@ -27,8 +35,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { durationActions } from "../redux/durationSlice";
 import { difficultyActions } from "../redux/difficultySlice";
 import { quizActions } from "../redux/quizSlice";
+import { modalActions } from "../redux/modalSlice";
 import { MainState, QuizItem } from "../redux/types";
 import { useNavigate } from "react-router-dom";
+
+const Transition = forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement<any, any>;
+  },
+  ref: React.Ref<unknown>
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 export const Home = () => {
   // redux
@@ -45,6 +63,7 @@ export const Home = () => {
   const duration = useSelector((state: MainState) => state.duration);
   const difficulty = useSelector((state: MainState) => state.difficulty.value);
   const quiz = useSelector((state: MainState) => state.quiz);
+  const modal = useSelector((state: MainState) => state.modal);
 
   useEffect(() => {
     console.log("This is dependency useEffect");
@@ -91,23 +110,59 @@ export const Home = () => {
     }, 1000);
   };
 
+  const handleModalClose = () => {
+    dispatch(modalActions.closeModal());
+    navigate("/quiz");
+  };
+
   const handleSubmit = async () => {
     if (!category.length) {
       setIsCategorySelected(false);
       return;
     }
-    const questions: QuizItem[] = await fetchQuestions({
+    dispatch(modalActions.openModal("Loading"));
+    fetchQuestions({
       categories: category.join(","),
       limit: quiz.count,
       difficulty,
-    });
-    dispatch(quizActions.setallQuizzes(questions));
-    console.log("Questions obtained " + questions.length);
-    navigate("/quiz");
+    })
+      .then((questions: QuizItem[]) => {
+        dispatch(quizActions.setallQuizzes(questions));
+        dispatch(modalActions.setMessage("Questions successfully generated"));
+        console.log("Questions obtained " + questions.length);
+      })
+      .catch((err) => {
+        dispatch(modalActions.setMessage("Error While Generating Quizzes"));
+      });
   };
 
   return (
     <ThemeProvider theme={theme}>
+      <Dialog
+        open={modal.isOpen}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleModalClose}
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle sx={{ mt: 1 }}>{modal.message}</DialogTitle>
+        <DialogContent sx={{ width : "70%", mx : "auto", textAlign : "center" }}>
+          <DialogContentText id="alert-dialog-slide-description">
+            You got {duration.timeLeft}s for {quiz.count} questions. Good Luck!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            variant="contained"
+            color="neutral"
+            sx={{ mx: "auto", mb: 2 }}
+            onClick={() => navigate("/quiz")}
+          >
+            Go to Answer
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       {categories.length && difficulties.length && (
         <div className="py-20 h-auto">
           <div className="text-center">

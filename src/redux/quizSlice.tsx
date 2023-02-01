@@ -1,15 +1,21 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Quiz, QuizItem } from "./types";
 
+const initialState = {
+  fetch: {
+    isLoading: false,
+    isError: false,
+    message: "",
+  },
+  count: 5,
+  allQuizzes: [],
+  currentQuiz: 0,
+  userAnswers: [],
+};
+
 const quizSlice = createSlice({
   name: "quizCount",
-  initialState: {
-    fetchErrors: null,
-    count: 5,
-    allQuizzes: [],
-    currentQuiz: 0,
-    userAnswers: [],
-  },
+  initialState,
   reducers: {
     setQuizCount: (state: Quiz, action: PayloadAction<number>) => {
       state.count = action.payload;
