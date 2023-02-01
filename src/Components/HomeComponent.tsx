@@ -66,7 +66,6 @@ export const Home = () => {
   const modal = useSelector((state: MainState) => state.modal);
 
   useEffect(() => {
-    console.log("This is dependency useEffect");
     if (category.length) {
       setIsCategorySelected((prev) => true);
       return;
@@ -81,7 +80,11 @@ export const Home = () => {
     fetchMetaData()
       .then((categories: any) => {
         setCategories([...Object.keys(categories["byCategory"])]);
-        setDifficulties([...Object.keys(categories["byDifficulty"])]);
+        setDifficulties([
+          ...Object.keys(categories["byDifficulty"]).filter(
+            (difficulty) => difficulty !== "null"
+          ),
+        ]);
       })
       .catch((err) => {
         console.log("ERROR while fetching categories " + err);
@@ -110,9 +113,12 @@ export const Home = () => {
     }, 1000);
   };
 
-  const handleModalClose = () => {
-    dispatch(modalActions.closeModal());
-    navigate("/quiz");
+  const handleModalClose = (event: any, reason: any) => {
+    if (reason !== "backdropClick" && reason !== "escapeKeyDown") {
+      // Set 'open' to false, however you would do that with your particular code.
+      dispatch(modalActions.closeModal());
+      navigate("/quiz");
+    }
   };
 
   const handleSubmit = async () => {
@@ -128,7 +134,7 @@ export const Home = () => {
     })
       .then((questions: QuizItem[]) => {
         dispatch(quizActions.setallQuizzes(questions));
-        dispatch(modalActions.setMessage("Questions successfully generated"));
+        dispatch(modalActions.setMessage("Questions successfully generated!"));
         console.log("Questions obtained " + questions.length);
       })
       .catch((err) => {
@@ -146,9 +152,33 @@ export const Home = () => {
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogTitle sx={{ mt: 1 }}>{modal.message}</DialogTitle>
-        <DialogContent sx={{ width : "70%", mx : "auto", textAlign : "center" }}>
+        <hr/>
+        <DialogContent sx={{ width: "100%", mx: "auto", textAlign: "center" }}>
           <DialogContentText id="alert-dialog-slide-description">
-            You got {duration.timeLeft}s for {quiz.count} questions. Good Luck!
+            <span className="text-[#160040]">
+              <span className="flex justify-between py-3">
+                <span className="mr-4">Categories</span>
+                <span>
+                  {category.map((category, index) => (
+                    <span
+                      className="bg-gray-200 text-sm mb-2 px-4 py-1 rounded-full block"
+                      key={index}
+                    >
+                      {category}
+                    </span>
+                  ))}
+                </span>
+              </span>
+              <span className="flex justify-between py-3">
+                <span>Difficulty</span>
+                <span>{difficulty}</span>
+              </span>
+            </span>
+            <span className="text-[#160040]">
+              You got <span className="font-bold">{duration.timeLeft}</span> s
+              for <span className="font-bold">{quiz.count}</span> questions.
+              Good Luck!
+            </span>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -156,14 +186,17 @@ export const Home = () => {
             variant="contained"
             color="neutral"
             sx={{ mx: "auto", mb: 2 }}
-            onClick={() => navigate("/quiz")}
+            onClick={() => {
+              dispatch(modalActions.closeModal());
+              navigate("/quiz");
+            }}
           >
             Go to Answer
           </Button>
         </DialogActions>
       </Dialog>
 
-      {categories.length && difficulties.length && (
+      {(categories.length > 0 && difficulties.length > 0 && (
         <div className="py-20 h-auto">
           <div className="text-center">
             <h1 className="text-[#FF8B13] text-md font-semibold">Welcome</h1>
@@ -288,6 +321,20 @@ export const Home = () => {
             </div>
           </div>
         </div>
+      )) || (
+        <Dialog
+          open={true}
+          TransitionComponent={Transition}
+          keepMounted
+          aria-describedby="alert-dialog-slide-description"
+        >
+          <DialogTitle sx={{ mt: 1 }}>Loading...</DialogTitle>
+          <DialogContent sx={{ width: "70%", mx: "auto", textAlign: "center" }}>
+            <DialogContentText id="alert-dialog-slide-description">
+              Please wait while getting ready!
+            </DialogContentText>
+          </DialogContent>
+        </Dialog>
       )}
     </ThemeProvider>
   );
