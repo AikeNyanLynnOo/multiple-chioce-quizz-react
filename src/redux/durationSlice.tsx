@@ -13,7 +13,7 @@ const durationSlice = createSlice({
       state.timeLeft = action.payload;
     },
     updateTimeLeft: (state: DurationState, action: PayloadAction<void>) => {
-      state.timeLeft -= 1;
+      state.timeLeft -= 0.01;
     },
   },
 });
