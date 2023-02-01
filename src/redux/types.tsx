@@ -23,6 +23,7 @@ export interface Quiz {
 }
 
 export interface DurationState {
+  timer: any;
   timeUp: number;
   timeLeft: number;
 }

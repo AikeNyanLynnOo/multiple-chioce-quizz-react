@@ -26,12 +26,6 @@ export const UserChoiceModalDialog = ({ category }: { category: string[] }) => {
 
   let timer: any = null;
 
-  useEffect(() => {
-    if (duration.timeLeft === 0) {
-      clearInterval(timer);
-    }
-  }, [duration.timeLeft, timer]);
-
   const handleModalClose = (event: any, reason: any) => {
     if (reason !== "backdropClick" && reason !== "escapeKeyDown") {
       // Set 'open' to false, however you would do that with your particular code.
@@ -88,9 +82,13 @@ export const UserChoiceModalDialog = ({ category }: { category: string[] }) => {
           sx={{ mx: "auto", mb: 2, color: "#FFFFFF" }}
           onClick={() => {
             dispatch(modalActions.closeModal());
-            timer = setInterval(() => {
-              dispatch(durationActions.updateTimeLeft());
-            }, 10);
+            dispatch(
+              durationActions.setTimer(
+                setInterval(() => {
+                  dispatch(durationActions.updateTimeLeft());
+                }, 10)
+              )
+            );
             navigate("/quiz");
           }}
         >
