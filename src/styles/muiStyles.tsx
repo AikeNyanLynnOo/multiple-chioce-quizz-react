@@ -1,14 +1,15 @@
 import { createTheme } from "@mui/material/styles";
 
 export const selectboxBorder = {
+  color: "#FFFFFF",
   ".MuiOutlinedInput-notchedOutline": {
-    borderColor: "rgba(43, 52, 103, 0.7)",
+    borderColor: "#FFFFFF",
   },
   "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-    borderColor: "rgba(255, 139, 19,0.9)",
+    borderColor: "#FF165D",
   },
   "&:hover .MuiOutlinedInput-notchedOutline": {
-    borderColor: "rgba(43, 52, 103, 1)",
+    borderColor: "#EEEEEE",
   },
   textAlign: "left",
 };
@@ -27,7 +28,7 @@ export const MenuProps = {
 export const theme = createTheme({
   palette: {
     neutral: {
-      main: "#FF8B13",
+      main: "#FF165D",
     },
   },
 });

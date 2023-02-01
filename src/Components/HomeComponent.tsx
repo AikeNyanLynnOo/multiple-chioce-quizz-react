@@ -77,6 +77,7 @@ export const Home = () => {
     // for first time, make error messages not to be shown
     // console.log("This is first time useEffect");
     setIsCategorySelected(true);
+
     fetchMetaData()
       .then((categories: any) => {
         setCategories([...Object.keys(categories["byCategory"])]);
@@ -151,8 +152,10 @@ export const Home = () => {
         onClose={handleModalClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle sx={{ mt: 1 }}>{modal.message}</DialogTitle>
-        <hr/>
+        <DialogTitle sx={{ mt: 1, textAlign: "center" }}>
+          {modal.message}
+        </DialogTitle>
+        <hr />
         <DialogContent sx={{ width: "100%", mx: "auto", textAlign: "center" }}>
           <DialogContentText id="alert-dialog-slide-description">
             <span className="text-[#160040]">
@@ -185,7 +188,8 @@ export const Home = () => {
           <Button
             variant="contained"
             color="neutral"
-            sx={{ mx: "auto", mb: 2 }}
+            disabled={(quiz.fetch.isLoading && true) || false}
+            sx={{ mx: "auto", mb: 2, color: "#FFFFFF" }}
             onClick={() => {
               dispatch(modalActions.closeModal());
               navigate("/quiz");
@@ -197,16 +201,21 @@ export const Home = () => {
       </Dialog>
 
       {(categories.length > 0 && difficulties.length > 0 && (
-        <div className="py-20 h-auto">
+        <div className="py-20 h-auto bg-[#495579]">
           <div className="text-center">
-            <h1 className="text-[#FF8B13] text-md font-semibold">Welcome</h1>
-            <h2 className="text-3xl  font-bold">
+            <h1 className="text-[#FF165D] text-md font-semibold">Welcome</h1>
+            <h2 className="text-3xl font-bold text-white">
               Time to test your Knowledge!
             </h2>
-            <div className="my-10 py-5 md:py-8 px-0 sm:px-5 md:px-20 rounded-lg border-0 sm:border border-[#243763] w-11/12 sm:w-9/12 lg:w-8/12 xl:w-5/12 2xl:w-4/12 mx-auto">
+            <div className="text-white my-10 py-5 md:py-8 px-0 sm:px-5 md:px-20 rounded-lg border-0 sm:border border-[#FFFFFF] w-11/12 sm:w-9/12 lg:w-8/12 xl:w-5/12 2xl:w-4/12 mx-auto">
               <div className="my-5">
                 <FormControl fullWidth>
-                  <InputLabel id="category-input-label">Category</InputLabel>
+                  <InputLabel
+                    id="category-input-label"
+                    sx={{ color: "#FFFFFF" }}
+                  >
+                    Category
+                  </InputLabel>
                   <Select
                     sx={selectboxBorder}
                     labelId="category-input-label"
@@ -223,7 +232,14 @@ export const Home = () => {
                     renderValue={(selected) => (
                       <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
                         {selected.map((value) => (
-                          <Chip key={value} label={value} />
+                          <Chip
+                            key={value}
+                            label={value}
+                            sx={{
+                              color: "#FF165D",
+                              backgroundColor: "#DDDDDD",
+                            }}
+                          />
                         ))}
                       </Box>
                     )}
@@ -238,7 +254,7 @@ export const Home = () => {
                   </Select>
                 </FormControl>
                 {!isCategorySelected && (
-                  <span className="text-red-500 text-sm font-italic">
+                  <span className="text-[#FF165D] text-sm italic font-semibold">
                     Please select at lease one category
                   </span>
                 )}
@@ -246,7 +262,10 @@ export const Home = () => {
 
               <div className="my-5">
                 <FormControl fullWidth>
-                  <InputLabel id="difficulty-input-label">
+                  <InputLabel
+                    id="difficulty-input-label"
+                    sx={{ color: "#FFFFFF" }}
+                  >
                     Difficulty
                   </InputLabel>
                   <Select
@@ -269,7 +288,10 @@ export const Home = () => {
 
               <div className="my-5">
                 <FormControl fullWidth>
-                  <InputLabel id="question-count-input-label">
+                  <InputLabel
+                    id="question-count-input-label"
+                    sx={{ color: "#FFFFFF" }}
+                  >
                     How Many Quizes?
                   </InputLabel>
                   <Select
@@ -291,7 +313,12 @@ export const Home = () => {
               </div>
               <div className="my-5">
                 <FormControl fullWidth>
-                  <InputLabel id="time-up-input-label">Time Up In?</InputLabel>
+                  <InputLabel
+                    id="time-up-input-label"
+                    sx={{ color: "#FFFFFF" }}
+                  >
+                    Time Up In?
+                  </InputLabel>
                   <Select
                     sx={selectboxBorder}
                     labelId="time-up-input-label"
@@ -328,7 +355,9 @@ export const Home = () => {
           keepMounted
           aria-describedby="alert-dialog-slide-description"
         >
-          <DialogTitle sx={{ mt: 1 }}>Loading...</DialogTitle>
+          <DialogTitle sx={{ mt: 1, textAlign: "center" }}>
+            Loading...
+          </DialogTitle>
           <DialogContent sx={{ width: "70%", mx: "auto", textAlign: "center" }}>
             <DialogContentText id="alert-dialog-slide-description">
               Please wait while getting ready!

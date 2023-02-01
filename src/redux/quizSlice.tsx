@@ -17,6 +17,15 @@ const quizSlice = createSlice({
   name: "quizCount",
   initialState,
   reducers: {
+    setIsFetchLoading: (state: Quiz, action: PayloadAction<boolean>) => {
+      state.fetch.isLoading = action.payload;
+    },
+    setIsFetchError: (state: Quiz, action: PayloadAction<boolean>) => {
+      state.fetch.isError = action.payload;
+    },
+    setFetchMessage: (state: Quiz, action: PayloadAction<string>) => {
+      state.fetch.message = action.payload;
+    },
     setQuizCount: (state: Quiz, action: PayloadAction<number>) => {
       state.count = action.payload;
     },
