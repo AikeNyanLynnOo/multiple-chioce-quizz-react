@@ -250,7 +250,7 @@ export const Home = () => {
                     onChange={changeTimeUp}
                     MenuProps={MenuProps}
                   >
-                    {["3 MINS", "5 MINS", "7 MINS", "10 MINS", "12 MINS"].map(
+                    {["1 MINS","3 MINS", "5 MINS", "7 MINS", "10 MINS", "12 MINS"].map(
                       (duration, key) => (
                         <MenuItem key={key} value={duration}>
                           {duration}
