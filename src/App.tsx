@@ -8,6 +8,7 @@ import {
 import { Home } from "./Components/HomeComponent";
 import { Quiz } from "./Components/QuizComponent";
 import { NotFound } from "./Components/NotFoundComponent";
+import { Result } from "./Components/ResultComponent";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/quiz",
     element: <Quiz />,
+  },
+  {
+    path: "/results",
+    element: <Result />,
   },
   {
     path: "*",
