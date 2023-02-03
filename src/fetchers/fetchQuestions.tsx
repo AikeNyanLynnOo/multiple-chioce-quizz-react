@@ -15,5 +15,10 @@ export const fetchQuestions = async ({
   console.log("Requesting questions -> " + url);
   const response = await fetch(url);
   const json = await response.json();
-  return json;
+  return json.map((question: any) => {
+    return {
+      ...question,
+      userAnswer: null,
+    };
+  });
 };

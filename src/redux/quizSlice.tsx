@@ -10,7 +10,6 @@ const initialState = {
   count: 5,
   allQuizzes: [],
   currentQuiz: 0,
-  userAnswers: [],
 };
 
 const quizSlice = createSlice({
@@ -34,6 +33,9 @@ const quizSlice = createSlice({
     },
     updateCurrentQuiz: (state: Quiz, action: PayloadAction<number>) => {
       state.currentQuiz = action.payload;
+    },
+    updateAnswer: (state: Quiz, action: PayloadAction<string>) => {
+      state.allQuizzes[state.currentQuiz].userAnswer = action.payload;
     },
   },
 });

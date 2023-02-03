@@ -7,7 +7,6 @@ import AppsIcon from "@mui/icons-material/Apps";
 import CloseIcon from "@mui/icons-material/Close";
 import { motion } from "framer-motion";
 import { gridDrawerVariants } from "../styles/framerStyles";
-
 const SnackbarAction = (
   <Link to="/results" className="text-[#FF165D] mr-2">
     See Results
@@ -38,6 +37,11 @@ export const Quiz = () => {
   const quiz = useSelector((state: MainState) => state.quiz);
   const duration = useSelector((state: MainState) => state.duration);
   const [drawerOpen, setDrawerOpen] = useState<null | boolean>(null);
+
+  const finishQuiz = () => {
+    // stop timer
+    // go to results page
+  };
 
   return (
     <div className="bg-[#160040] h-screen text-[#FF165D] text-center">
@@ -93,7 +97,9 @@ export const Quiz = () => {
         className="border relative z-10 bg-[#160040] border-[#FF165D] rounded-md pt-4  pb-4 px-3 md:px-5 mx-auto sm:mr-auto sm:ml-0 w-11/12 sm:w-5/12 lg:w-4/12 xl:w-3/12 2xl:w-52"
       >
         <div className="flex justify-between items-center">
-          <span className="text-[#FF165D] font-semibold text-lg">My Quizzes</span>
+          <span className="text-[#FF165D] font-semibold text-lg">
+            My Quizzes
+          </span>
           <CloseIcon
             className="cursor-pointer"
             sx={{ fontSize: 40 }}
@@ -105,7 +111,12 @@ export const Quiz = () => {
         <div className="block sm:hidden border border-[#FF165D] rounded-md py-3 px-2 mt-5">
           Time Left - {formatSecondsToHHMMSS(duration.timeLeft)}
         </div>
-        <motion.div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mt-5">
+        <div className="border border-[#FF165D] rounded-md py-3 px-2 mt-5">
+          Already Answered -{" "}
+          {quiz.allQuizzes.filter((q) => q.userAnswer).length}/
+          {quiz.allQuizzes.length}
+        </div>
+        <motion.div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 my-10">
           {quiz.allQuizzes.map((quiz, index) => (
             <motion.span
               key={index}
@@ -115,7 +126,15 @@ export const Quiz = () => {
             </motion.span>
           ))}
         </motion.div>
+        <button
+          className="w-full bg-[#FF165D] text-white text-lg py-2 rounded-lg"
+          onClick={finishQuiz}
+        >
+          Finish My Test
+        </button>
       </motion.div>
+
+      <div className=""></div>
     </div>
   );
 };

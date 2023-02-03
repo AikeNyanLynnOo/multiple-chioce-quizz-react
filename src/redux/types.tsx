@@ -9,6 +9,7 @@ export interface QuizItem {
   difficulty: string;
   regions: string;
   isNiche: boolean;
+  userAnswer: string | null;
 }
 export interface Quiz {
   fetch: {
@@ -19,7 +20,6 @@ export interface Quiz {
   count: number;
   allQuizzes: QuizItem[];
   currentQuiz: number;
-  userAnswers: string[];
 }
 
 export interface DurationState {
