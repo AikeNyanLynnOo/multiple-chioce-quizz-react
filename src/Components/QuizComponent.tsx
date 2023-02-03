@@ -65,7 +65,9 @@ export const Quiz = () => {
         <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={duration.timeLeft <= 0 ? true : false}
-          onClose={() => {}}
+          onClose={() => {
+            // do nothing (no close)
+          }}
           message="Time Up!"
           action={SnackbarAction}
         />
@@ -74,7 +76,9 @@ export const Quiz = () => {
         <Snackbar
           anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
           open={duration.timeLeft <= 0 ? true : false}
-          onClose={() => {}}
+          onClose={() => {
+            // do nothing (no close)
+          }}
           message="Time Up!"
           action={SnackbarAction}
         />
@@ -159,6 +163,9 @@ export const Quiz = () => {
         <button
           className="w-full mr-5 bg-[#FF165D] text-white text-lg py-2 rounded-lg"
           onClick={() => {
+            if (duration.timeLeft <= 0) {
+              return;
+            }
             dispatch(
               quizActions.updateCurrentQuiz(
                 quiz.currentQuiz > 0
@@ -173,6 +180,9 @@ export const Quiz = () => {
         <button
           className="w-full bg-[#FF165D] text-white text-lg py-2 rounded-lg"
           onClick={() => {
+            if (duration.timeLeft <= 0) {
+              return;
+            }
             dispatch(
               quizActions.updateCurrentQuiz(
                 quiz.currentQuiz < quiz.allQuizzes.length - 1

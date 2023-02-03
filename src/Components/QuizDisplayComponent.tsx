@@ -38,7 +38,7 @@ export const QuizDisplay = () => {
                 }
                 dispatch(quizActions.updateUserAnswer(answer));
               }}
-              className={`cursor-pointer flex flex-col items-center border border-[#FF165D] rounded-md py-3 hover:bg-[#FF165D] group ${
+              className={`cursor-pointer flex flex-col items-center border border-[#FF165D] rounded-md py-3 group ${
                 quiz.allQuizzes[quiz.currentQuiz].userAnswer?.text ===
                 answer.text
                   ? "bg-[#FF165D]"
@@ -52,7 +52,7 @@ export const QuizDisplay = () => {
                   answer.text
                     ? "text-[#FFFFFF]"
                     : "text-[#FF165D]"
-                }  group-hover:text-[#FFFFFF] text-lg font-semibold`}
+                } text-lg font-semibold`}
               >
                 {answer.text}
               </p>
