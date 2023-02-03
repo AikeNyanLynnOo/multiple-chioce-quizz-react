@@ -69,22 +69,43 @@ export const Quiz = () => {
       <span className="hidden sm:block absolute top-2 right-0 border border-[#FF165D] rounded-md py-3 px-2">
         Time Left - {formatSecondsToHHMMSS(duration.timeLeft)}
       </span>
-      <AppsIcon
-        className="absolute top-2 left-0 cursor-pointer z-10"
-        onClick={() => setDrawerOpen(drawerOpen === null ? true : !drawerOpen)}
-      />
+
+      {!drawerOpen && (
+        <AppsIcon
+          sx={{
+            fontSize: 40,
+            border: "1px solid #FF165D",
+            borderRadius: 1,
+            padding: 0.5,
+            boxSizing: "content-box",
+          }}
+          className="absolute top-2 left-0 cursor-pointer z-10"
+          onClick={() =>
+            setDrawerOpen(drawerOpen === null ? true : !drawerOpen)
+          }
+        />
+      )}
 
       <motion.div
         variants={gridDrawerVariants}
         initial={drawerOpen === null ? "close" : drawerOpen ? "close" : "open"}
         animate={drawerOpen === null ? "" : drawerOpen ? "open" : "close"}
-        className="border relative z-10 bg-[#160040] border-[#FF165D] rounded-md pt-4  pb-2 px-3 md:px-5 mx-auto sm:mr-auto sm:ml-0 w-11/12 sm:w-5/12 lg:w-4/12 xl:w-3/12 2xl:w-52"
+        className="border relative z-10 bg-[#160040] border-[#FF165D] rounded-md pt-4  pb-4 px-3 md:px-5 mx-auto sm:mr-auto sm:ml-0 w-11/12 sm:w-5/12 lg:w-4/12 xl:w-3/12 2xl:w-52"
       >
-        <CloseIcon className="absolute top-2 right-2" />
-        <div className="block sm:hidden border border-[#FF165D] rounded-md py-3 px-2">
+        <div className="flex justify-between items-center">
+          <span className="text-[#FF165D] font-semibold text-lg">My Quizzes</span>
+          <CloseIcon
+            className="cursor-pointer"
+            sx={{ fontSize: 40 }}
+            onClick={() =>
+              setDrawerOpen(drawerOpen === null ? false : !drawerOpen)
+            }
+          />
+        </div>
+        <div className="block sm:hidden border border-[#FF165D] rounded-md py-3 px-2 mt-5">
           Time Left - {formatSecondsToHHMMSS(duration.timeLeft)}
         </div>
-        <motion.div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mt-3">
+        <motion.div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mt-5">
           {quiz.allQuizzes.map((quiz, index) => (
             <motion.span
               key={index}
