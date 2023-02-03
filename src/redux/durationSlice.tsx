@@ -5,8 +5,8 @@ const durationSlice = createSlice({
   name: "duration",
   initialState: {
     timer: null,
-    timeUp: 180,
-    timeLeft: 180,
+    timeUp: 60,
+    timeLeft: 60,
   },
   reducers: {
     setTimer: (state: DurationState, action: PayloadAction<any>) => {
@@ -22,6 +22,9 @@ const durationSlice = createSlice({
         return;
       }
       state.timeLeft -= 0.01;
+    },
+    clearTimer: (state: DurationState, action: PayloadAction<void>) => {
+      clearInterval(state.timer);
     },
   },
 });

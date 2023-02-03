@@ -1,3 +1,8 @@
+export interface Answer {
+  choice: string;
+  text: string;
+}
+
 export interface QuizItem {
   category: string;
   id: string;
@@ -9,7 +14,8 @@ export interface QuizItem {
   difficulty: string;
   regions: string;
   isNiche: boolean;
-  userAnswer: string | null;
+  userAnswer: Answer | null;
+  shuffledAnswers: Answer[];
 }
 export interface Quiz {
   fetch: {

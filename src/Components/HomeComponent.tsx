@@ -34,7 +34,6 @@ import { MainState, QuizItem } from "../redux/types";
 // MY COMPONENTS
 import { UserChoiceModalDialog } from "./UserChoiceModalDialog";
 import { LoadingDialog } from "./LoadingDialog";
-
 export const Home = () => {
   // redux
   const dispatch = useDispatch();
@@ -48,6 +47,9 @@ export const Home = () => {
   const difficulty = useSelector((state: MainState) => state.difficulty.value);
   const quiz = useSelector((state: MainState) => state.quiz);
 
+  useEffect(() => {
+    dispatch(durationActions.setTimeUp(60));
+  }, [dispatch]);
   useEffect(() => {
     if (category.length) {
       setIsCategorySelected((prev) => true);
@@ -108,6 +110,8 @@ export const Home = () => {
     })
       .then((questions: QuizItem[]) => {
         dispatch(quizActions.setallQuizzes(questions));
+        dispatch(quizActions.updateCurrentQuiz(0));
+        dispatch(quizActions.setShuffledAnswers());
         dispatch(modalActions.setMessage("Questions successfully generated!"));
         dispatch(quizActions.setIsFetchLoading(false));
         console.log("Questions obtained " + questions.length);
@@ -123,10 +127,10 @@ export const Home = () => {
     <ThemeProvider theme={theme}>
       <UserChoiceModalDialog category={category} />
       {(categories.length > 0 && difficulties.length > 0 && (
-        <div className="py-20 h-screen bg-[#495579]">
+        <div className="py-20 min-h-screen h-auto bg-[#160040]">
           <div className="text-center">
             <h1 className="text-[#FF165D] text-md font-semibold">Welcome</h1>
-            <h2 className="text-3xl font-bold text-white">
+            <h2 className="text-3xl font-bold text-white px-2">
               Time to test your Knowledge!
             </h2>
             <div className="text-white my-10 py-5 md:py-8 px-0 sm:px-5 md:px-20 rounded-lg border-0 sm:border border-[#FFFFFF] w-11/12 sm:w-9/12 lg:w-8/12 xl:w-5/12 2xl:w-4/12 mx-auto">
@@ -250,13 +254,18 @@ export const Home = () => {
                     onChange={changeTimeUp}
                     MenuProps={MenuProps}
                   >
-                    {["1 MINS","3 MINS", "5 MINS", "7 MINS", "10 MINS", "12 MINS"].map(
-                      (duration, key) => (
-                        <MenuItem key={key} value={duration}>
-                          {duration}
-                        </MenuItem>
-                      )
-                    )}
+                    {[
+                      "1 MINS",
+                      "3 MINS",
+                      "5 MINS",
+                      "7 MINS",
+                      "10 MINS",
+                      "12 MINS",
+                    ].map((duration, key) => (
+                      <MenuItem key={key} value={duration}>
+                        {duration}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </div>

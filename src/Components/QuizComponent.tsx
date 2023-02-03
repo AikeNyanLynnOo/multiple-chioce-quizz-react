@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { MainState } from "../redux/types";
 import { Snackbar, Button } from "@mui/material";
@@ -7,6 +7,12 @@ import AppsIcon from "@mui/icons-material/Apps";
 import CloseIcon from "@mui/icons-material/Close";
 import { motion } from "framer-motion";
 import { gridDrawerVariants } from "../styles/framerStyles";
+import { quizActions } from "../redux/quizSlice";
+
+// MY COMPONENTS
+import { QuizDisplay } from "./QuizDisplayComponent";
+import { durationActions } from "../redux/durationSlice";
+
 const SnackbarAction = (
   <Link to="/results" className="text-[#FF165D] mr-2">
     See Results
@@ -34,27 +40,35 @@ function formatSecondsToHHMMSS(duration: number) {
 
 export const Quiz = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const quiz = useSelector((state: MainState) => state.quiz);
   const duration = useSelector((state: MainState) => state.duration);
   const [drawerOpen, setDrawerOpen] = useState<null | boolean>(null);
 
+  useEffect((): any => {
+    if (!quiz.allQuizzes.length) {
+      navigate("/", { replace: true });
+    }
+  }, [navigate, quiz]);
   const finishQuiz = () => {
     // stop timer
+    dispatch(durationActions.clearTimer());
     // go to results page
+    navigate("/results");
   };
 
   return (
-    <div className="bg-[#160040] h-screen text-[#FF165D] text-center">
+    <div className="bg-[#160040] h-auto min-h-screen text-[#FF165D] text-center">
       {/* snack bar */}
 
       <div className="hidden sm:block">
-        {/* <Snackbar
+        <Snackbar
           anchorOrigin={{ vertical: "top", horizontal: "center" }}
           open={duration.timeLeft <= 0 ? true : false}
           onClose={() => {}}
           message="Time Up!"
           action={SnackbarAction}
-        /> */}
+        />
       </div>
       <div className="block sm:hidden">
         <Snackbar
@@ -70,7 +84,7 @@ export const Quiz = () => {
         className="h-2 bg-[#FF165D] transition-all duration-150 ease-out"
         style={{ width: `${(duration.timeLeft / duration.timeUp) * 100}%` }}
       ></div>
-      <span className="hidden sm:block absolute top-2 right-0 border border-[#FF165D] rounded-md py-3 px-2">
+      <span className="hidden sm:block absolute top-2 right-1 border border-[#FF165D] rounded-md py-3 px-2">
         Time Left - {formatSecondsToHHMMSS(duration.timeLeft)}
       </span>
 
@@ -83,7 +97,7 @@ export const Quiz = () => {
             padding: 0.5,
             boxSizing: "content-box",
           }}
-          className="absolute top-2 left-0 cursor-pointer z-10"
+          className="absolute top-2 left-1 cursor-pointer z-10"
           onClick={() =>
             setDrawerOpen(drawerOpen === null ? true : !drawerOpen)
           }
@@ -116,16 +130,23 @@ export const Quiz = () => {
           {quiz.allQuizzes.filter((q) => q.userAnswer).length}/
           {quiz.allQuizzes.length}
         </div>
-        <motion.div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 my-10">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 my-10">
           {quiz.allQuizzes.map((quiz, index) => (
-            <motion.span
+            <span
               key={index}
-              className="cursor-pointer text-center text-lg text-[#FF165D] py-2 px-0 sm:px-3 bg-[#ffffff] rounded-lg"
+              onClick={() => {
+                dispatch(quizActions.updateCurrentQuiz(index));
+              }}
+              className={`cursor-pointer text-center text-lg py-2 px-0 sm:px-3 ${
+                quiz.userAnswer
+                  ? "bg-[#FF165D] text-[#FFFFFF]"
+                  : "bg-[#FFFFFF] text-[#FF165D]"
+              } rounded-lg`}
             >
               {index + 1}
-            </motion.span>
+            </span>
           ))}
-        </motion.div>
+        </div>
         <button
           className="w-full bg-[#FF165D] text-white text-lg py-2 rounded-lg"
           onClick={finishQuiz}
@@ -133,8 +154,37 @@ export const Quiz = () => {
           Finish My Test
         </button>
       </motion.div>
-
-      <div className=""></div>
+      <QuizDisplay />
+      <div className="flex w-full px-2 absolute bottom-0 left-1/2 -translate-x-1/2 sm:hidden sm:flex justify-between items-center mt-5">
+        <button
+          className="w-full mr-5 bg-[#FF165D] text-white text-lg py-2 rounded-lg"
+          onClick={() => {
+            dispatch(
+              quizActions.updateCurrentQuiz(
+                quiz.currentQuiz > 0
+                  ? quiz.currentQuiz - 1
+                  : quiz.allQuizzes.length - 1
+              )
+            );
+          }}
+        >
+          Previous Quiz
+        </button>
+        <button
+          className="w-full bg-[#FF165D] text-white text-lg py-2 rounded-lg"
+          onClick={() => {
+            dispatch(
+              quizActions.updateCurrentQuiz(
+                quiz.currentQuiz < quiz.allQuizzes.length - 1
+                  ? quiz.currentQuiz + 1
+                  : 0
+              )
+            );
+          }}
+        >
+          Next Quiz
+        </button>
+      </div>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Quiz, QuizItem } from "./types";
+import { shuffleArray } from "../utils/shuffleArray";
+import { Answer, Quiz, QuizItem } from "./types";
 
 const initialState = {
   fetch: {
@@ -31,10 +32,23 @@ const quizSlice = createSlice({
     setallQuizzes: (state: Quiz, action: PayloadAction<QuizItem[]>) => {
       state.allQuizzes = [...action.payload];
     },
+    setShuffledAnswers: (state: Quiz, action: PayloadAction<void>) => {
+      state.allQuizzes.forEach((q) => {
+        q.shuffledAnswers = shuffleArray([
+          ...q.incorrectAnswers,
+          q.correctAnswer,
+        ]).map((ans, index) => {
+          return {
+            choice: ["A", "B", "C", "D", "E", "F", "G"][index],
+            text: ans,
+          };
+        });
+      });
+    },
     updateCurrentQuiz: (state: Quiz, action: PayloadAction<number>) => {
       state.currentQuiz = action.payload;
     },
-    updateAnswer: (state: Quiz, action: PayloadAction<string>) => {
+    updateUserAnswer: (state: Quiz, action: PayloadAction<Answer>) => {
       state.allQuizzes[state.currentQuiz].userAnswer = action.payload;
     },
   },
