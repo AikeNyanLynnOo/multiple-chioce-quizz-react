@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // MUI
@@ -23,8 +21,6 @@ export const UserChoiceModalDialog = ({ category }: { category: string[] }) => {
   const difficulty = useSelector((state: MainState) => state.difficulty.value);
   const quiz = useSelector((state: MainState) => state.quiz);
   const modal = useSelector((state: MainState) => state.modal);
-
-  let timer: any = null;
 
   const handleModalClose = (event: any, reason: any) => {
     if (reason !== "backdropClick" && reason !== "escapeKeyDown") {

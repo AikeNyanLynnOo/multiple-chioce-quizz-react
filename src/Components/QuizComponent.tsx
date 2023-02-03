@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { MainState } from "../redux/types";
-import { Snackbar, Button } from "@mui/material";
+import { Snackbar } from "@mui/material";
 import AppsIcon from "@mui/icons-material/Apps";
 import CloseIcon from "@mui/icons-material/Close";
 import { motion } from "framer-motion";

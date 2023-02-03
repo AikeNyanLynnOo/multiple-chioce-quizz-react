@@ -2,8 +2,6 @@ import "./styles/style.css";
 import {
   createBrowserRouter,
   RouterProvider,
-  Route,
-  Link,
 } from "react-router-dom";
 import { Home } from "./Components/HomeComponent";
 import { Quiz } from "./Components/QuizComponent";
