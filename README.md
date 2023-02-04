@@ -54,4 +54,4 @@ Start the server
 
 ### Demo
 
-[Demo](https://multiple-choice-quiz-game.netlify.app/results)
+[Demo](https://multiple-choice-quiz-game.netlify.app/)
