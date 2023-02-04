@@ -26,6 +26,7 @@ export interface Quiz {
   count: number;
   allQuizzes: QuizItem[];
   currentQuiz: number;
+  currentDirection: number;
 }
 
 export interface DurationState {

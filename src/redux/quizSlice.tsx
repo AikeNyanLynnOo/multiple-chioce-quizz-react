@@ -11,6 +11,7 @@ const initialState = {
   count: 5,
   allQuizzes: [],
   currentQuiz: 0,
+  currentDirection: 1, // animation direction for next button & previous button
 };
 
 const quizSlice = createSlice({
@@ -50,6 +51,9 @@ const quizSlice = createSlice({
     },
     updateUserAnswer: (state: Quiz, action: PayloadAction<Answer>) => {
       state.allQuizzes[state.currentQuiz].userAnswer = action.payload;
+    },
+    setCurrentDirection: (state: Quiz, action: PayloadAction<number>) => {
+      state.currentDirection = action.payload;
     },
   },
 });

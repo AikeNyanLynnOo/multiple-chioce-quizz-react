@@ -166,6 +166,7 @@ export const Quiz = () => {
             if (duration.timeLeft <= 0) {
               return;
             }
+            dispatch(quizActions.setCurrentDirection(-1));
             dispatch(
               quizActions.updateCurrentQuiz(
                 quiz.currentQuiz > 0
@@ -183,6 +184,7 @@ export const Quiz = () => {
             if (duration.timeLeft <= 0) {
               return;
             }
+            dispatch(quizActions.setCurrentDirection(1));
             dispatch(
               quizActions.updateCurrentQuiz(
                 quiz.currentQuiz < quiz.allQuizzes.length - 1
