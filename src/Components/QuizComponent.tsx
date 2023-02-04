@@ -85,7 +85,7 @@ export const Quiz = () => {
       </div>
 
       <div
-        className="h-2 bg-[#FF165D] transition-all duration-150 ease-out"
+        className="bg-[#FF165D] transition-all duration-150 ease-out py-1"
         style={{ width: `${(duration.timeLeft / duration.timeUp) * 100}%` }}
       ></div>
       <span className="hidden sm:block absolute top-2 right-1 border border-[#FF165D] rounded-md py-3 px-2">
