@@ -66,7 +66,7 @@ export const UserChoiceModalDialog = ({ category }: { category: string[] }) => {
               <span>{difficulty}</span>
             </span>
           </span>
-          <span className="text-[#160040] w-full px-3 py-3 border border-[#FF165D] rounded-lg">
+          <span className="text-[#160040] block w-full px-3 py-3 border border-[#FF165D] rounded-lg">
             You got{" "}
             <span className="font-bold">
               {formatSecondsToHHMMSS(duration.timeLeft)}
