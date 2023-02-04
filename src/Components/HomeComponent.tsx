@@ -127,7 +127,7 @@ export const Home = () => {
     <ThemeProvider theme={theme}>
       <UserChoiceModalDialog category={category} />
       {(categories.length > 0 && difficulties.length > 0 && (
-        <div className="py-20 min-h-screen h-auto bg-[#160040]">
+        <div className="py-20 min-h-screen max-h-screen overflow-y-scroll h-auto bg-[#160040]">
           <div className="text-center">
             <h1 className="text-[#FF165D] text-md font-semibold">Welcome</h1>
             <h2 className="text-3xl font-bold text-white px-2">

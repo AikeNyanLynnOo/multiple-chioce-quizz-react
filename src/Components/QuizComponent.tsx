@@ -159,7 +159,7 @@ export const Quiz = () => {
         </button>
       </motion.div>
       <QuizDisplay />
-      <div className="flex w-full px-2 absolute bottom-0 left-1/2 -translate-x-1/2 sm:hidden sm:flex justify-between items-center mt-5">
+      <div className="flex w-full px-2 py-3 absolute bottom-0 left-1/2 -translate-x-1/2 sm:hidden sm:flex justify-between items-center mt-5">
         <button
           className="w-full mr-5 bg-[#FF165D] text-white text-lg py-2 rounded-lg"
           onClick={() => {
