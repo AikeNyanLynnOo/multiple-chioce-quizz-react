@@ -1,12 +1,12 @@
 ## Multiple Choice Quiz App
 
-![Design Captured](https://github.com/AikeNyanLynnOo/multiple-chioce-quizz-react/blob/main/public/capture/screencapture1.png "Screen Capture")
-![Design Captured](https://github.com/AikeNyanLynnOo/multiple-chioce-quizz-react/blob/main/public/capture/screencapture2.png "Screen Capture")
-![Design Captured](https://github.com/AikeNyanLynnOo/multiple-chioce-quizz-react/blob/main/public/capture/screencapture3.png "Screen Capture")
-![Design Captured](https://github.com/AikeNyanLynnOo/multiple-chioce-quizz-react/blob/main/public/capture/screencapture4.png "Screen Capture")
-![Design Captured](https://github.com/AikeNyanLynnOo/multiple-chioce-quizz-react/blob/main/public/capture/screencapture5.png "Screen Capture")
-![Design Captured](https://github.com/AikeNyanLynnOo/multiple-chioce-quizz-react/blob/main/public/capture/screencapture6.png "Screen Capture")
-![Design Captured](https://github.com/AikeNyanLynnOo/multiple-chioce-quizz-react/blob/main/public/capture/screencapture7.png "Screen Capture")
+![Design Captured](https://github.com/AikeNyanLynnOo/multiple-chioce-quizz-react/blob/main/public/captures/screencapture1.png "Choose Categories, Difficulty Level, Time you will take")
+![Design Captured](https://github.com/AikeNyanLynnOo/multiple-chioce-quizz-react/blob/main/public/captures/screencapture2.png "User Choice Result")
+![Design Captured](https://github.com/AikeNyanLynnOo/multiple-chioce-quizz-react/blob/main/public/captures/screencapture3.png "Quiz Display")
+![Design Captured](https://github.com/AikeNyanLynnOo/multiple-chioce-quizz-react/blob/main/public/captures/screencapture4.png "Left Animate Quiz Panel")
+![Design Captured](https://github.com/AikeNyanLynnOo/multiple-chioce-quizz-react/blob/main/public/captures/screencapture5.png "Quizzes Already Answered")
+![Design Captured](https://github.com/AikeNyanLynnOo/multiple-chioce-quizz-react/blob/main/public/captures/screencapture6.png "See Results Button when all questions are already answered")
+![Design Captured](https://github.com/AikeNyanLynnOo/multiple-chioce-quizz-react/blob/main/public/captures/screencapture7.png "Result Page")
 
 ### Used Technologies
 
