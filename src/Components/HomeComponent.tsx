@@ -103,6 +103,7 @@ export const Home = () => {
     }
     dispatch(modalActions.openModal("Loading"));
     dispatch(quizActions.setIsFetchLoading(true));
+    console.log("User Selected Categories -> " + category);
     fetchQuestions({
       categories: category.join(","),
       limit: quiz.count,
@@ -160,10 +161,13 @@ export const Home = () => {
                         {selected.map((value) => (
                           <Chip
                             key={value}
-                            label={value}
+                            label={value
+                              .replaceAll("_", " ")
+                              .replaceAll("and", "&")}
                             sx={{
                               color: "#FF165D",
                               backgroundColor: "#DDDDDD",
+                              textTransform: "capitalize",
                             }}
                           />
                         ))}
@@ -172,8 +176,23 @@ export const Home = () => {
                     MenuProps={MenuProps}
                   >
                     {categories.map((cat, key) => (
-                      <MenuItem key={key} value={cat}>
-                        <Checkbox checked={category.indexOf(cat) > -1} />
+                      <MenuItem
+                        key={key}
+                        value={cat
+                          .toLowerCase()
+                          .replaceAll(" ", "_")
+                          .replaceAll("&", "and")}
+                      >
+                        <Checkbox
+                          checked={
+                            category.indexOf(
+                              cat
+                                .toLowerCase()
+                                .replaceAll(" ", "_")
+                                .replaceAll("&", "and")
+                            ) > -1
+                          }
+                        />
                         <ListItemText primary={cat} />
                       </MenuItem>
                     ))}

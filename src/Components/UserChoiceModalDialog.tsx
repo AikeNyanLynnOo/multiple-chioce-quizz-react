@@ -14,6 +14,9 @@ import { MainState } from "../redux/types";
 import { modalActions } from "../redux/modalSlice";
 import { durationActions } from "../redux/durationSlice";
 
+// UTILS
+import { formatSecondsToHHMMSS } from "../utils/getTimeStringFromSeconds";
+
 export const UserChoiceModalDialog = ({ category }: { category: string[] }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -50,10 +53,10 @@ export const UserChoiceModalDialog = ({ category }: { category: string[] }) => {
               <span>
                 {category.map((category, index) => (
                   <span
-                    className="bg-gray-200 text-sm mb-2 px-4 py-1 rounded-full block"
+                    className="bg-gray-200 text-sm mb-2 px-4 py-1 rounded-full block capitalize"
                     key={index}
                   >
-                    {category}
+                    {category.replaceAll("_", " ").replaceAll("and", "&")}
                   </span>
                 ))}
               </span>
@@ -63,9 +66,12 @@ export const UserChoiceModalDialog = ({ category }: { category: string[] }) => {
               <span>{difficulty}</span>
             </span>
           </span>
-          <span className="text-[#160040]">
-            You got <span className="font-bold">{duration.timeLeft}</span> s for{" "}
-            <span className="font-bold">{quiz.count}</span> questions. Good
+          <span className="text-[#160040] w-full px-3 py-3 border border-[#FF165D] rounded-lg">
+            You got{" "}
+            <span className="font-bold">
+              {formatSecondsToHHMMSS(duration.timeLeft)}
+            </span>{" "}
+            for <span className="font-bold">{quiz.count}</span> questions. Good
             Luck!
           </span>
         </DialogContentText>

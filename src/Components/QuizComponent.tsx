@@ -13,30 +13,14 @@ import { quizActions } from "../redux/quizSlice";
 import { QuizDisplay } from "./QuizDisplayComponent";
 import { durationActions } from "../redux/durationSlice";
 
+// UTILS
+import { formatSecondsToHHMMSS } from "../utils/getTimeStringFromSeconds";
+
 const SnackbarAction = (
   <Link to="/results" className="text-[#FF165D] mr-2">
     See Results
   </Link>
 );
-
-function formatSecondsToHHMMSS(duration: number) {
-  // Hours, minutes and seconds
-  const hrs = ~~(duration / 3600);
-  const mins = ~~((duration % 3600) / 60);
-  const secs = ~~duration % 60;
-
-  // Output like "1:01" or "4:03:59" or "123:03:59"
-  let ret = "";
-
-  if (hrs > 0) {
-    ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
-  }
-
-  ret += "" + mins + ":" + (secs < 10 ? "0" : "");
-  ret += "" + secs;
-
-  return ret;
-}
 
 export const Quiz = () => {
   const dispatch = useDispatch();
@@ -159,44 +143,55 @@ export const Quiz = () => {
         </button>
       </motion.div>
       <QuizDisplay />
-      <div className="flex w-full px-2 py-3 absolute bottom-0 left-1/2 -translate-x-1/2 sm:hidden sm:flex justify-between items-center mt-5">
+      {(quiz.allQuizzes.every((quiz) => quiz.userAnswer) && (
         <button
-          className="w-full mr-5 bg-[#FF165D] text-white text-lg py-2 rounded-lg"
+          className="w-11/12 block sm:hidden bg-[#FF165D] text-white text-lg py-2 rounded-lg absolute bottom-10 left-1/2 -translate-x-1/2"
           onClick={() => {
-            if (duration.timeLeft <= 0) {
-              return;
-            }
-            dispatch(quizActions.setCurrentDirection(-1));
-            dispatch(
-              quizActions.updateCurrentQuiz(
-                quiz.currentQuiz > 0
-                  ? quiz.currentQuiz - 1
-                  : quiz.allQuizzes.length - 1
-              )
-            );
+            navigate("/results");
           }}
         >
-          Previous Quiz
+          See Results
         </button>
-        <button
-          className="w-full bg-[#FF165D] text-white text-lg py-2 rounded-lg"
-          onClick={() => {
-            if (duration.timeLeft <= 0) {
-              return;
-            }
-            dispatch(quizActions.setCurrentDirection(1));
-            dispatch(
-              quizActions.updateCurrentQuiz(
-                quiz.currentQuiz < quiz.allQuizzes.length - 1
-                  ? quiz.currentQuiz + 1
-                  : 0
-              )
-            );
-          }}
-        >
-          Next Quiz
-        </button>
-      </div>
+      )) || (
+        <div className="flex w-full px-2 py-3 absolute bottom-0 left-1/2 -translate-x-1/2 sm:hidden justify-between items-center mt-5">
+          <button
+            className="w-full mr-5 bg-[#FF165D] text-white text-lg py-2 rounded-lg"
+            onClick={() => {
+              if (duration.timeLeft <= 0) {
+                return;
+              }
+              dispatch(quizActions.setCurrentDirection(-1));
+              dispatch(
+                quizActions.updateCurrentQuiz(
+                  quiz.currentQuiz > 0
+                    ? quiz.currentQuiz - 1
+                    : quiz.allQuizzes.length - 1
+                )
+              );
+            }}
+          >
+            Previous Quiz
+          </button>
+          <button
+            className="w-full bg-[#FF165D] text-white text-lg py-2 rounded-lg"
+            onClick={() => {
+              if (duration.timeLeft <= 0) {
+                return;
+              }
+              dispatch(quizActions.setCurrentDirection(1));
+              dispatch(
+                quizActions.updateCurrentQuiz(
+                  quiz.currentQuiz < quiz.allQuizzes.length - 1
+                    ? quiz.currentQuiz + 1
+                    : 0
+                )
+              );
+            }}
+          >
+            Next Quiz
+          </button>
+        </div>
+      )}
     </div>
   );
 };

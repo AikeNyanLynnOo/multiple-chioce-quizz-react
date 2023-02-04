@@ -1,12 +1,14 @@
 import { useSelector, useDispatch } from "react-redux";
 import { MainState } from "../redux/types";
 import { quizActions } from "../redux/quizSlice";
+import { useNavigate } from "react-router-dom";
 
 // FRAMER STYLES
 import { motion, AnimatePresence } from "framer-motion";
 import { quizItemVariants } from "../styles/framerStyles";
 export const QuizDisplay = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const quiz = useSelector((state: MainState) => state.quiz);
   const duration = useSelector((state: MainState) => state.duration);
   return (
@@ -64,44 +66,55 @@ export const QuizDisplay = () => {
             )
           )}
         </div>
-        <div className="hidden sm:block sm:flex justify-between items-center mt-5">
+        {(quiz.allQuizzes.every((quiz) => quiz.userAnswer) && (
           <button
-            className="w-full mb-3 sm:mb-0 mr-5 bg-[#FF165D] text-white text-lg py-2 rounded-lg"
+            className="w-full bg-[#FF165D] text-white text-lg py-2 rounded-lg hidden sm:block mt-5"
             onClick={() => {
-              if (duration.timeLeft <= 0) {
-                return;
-              }
-              dispatch(quizActions.setCurrentDirection(-1));
-              dispatch(
-                quizActions.updateCurrentQuiz(
-                  quiz.currentQuiz > 0
-                    ? quiz.currentQuiz - 1
-                    : quiz.allQuizzes.length - 1
-                )
-              );
+              navigate("/results");
             }}
           >
-            Previous Quiz
+            See Results
           </button>
-          <button
-            className="w-full bg-[#FF165D] text-white text-lg py-2 rounded-lg"
-            onClick={() => {
-              if (duration.timeLeft <= 0) {
-                return;
-              }
-              dispatch(quizActions.setCurrentDirection(1));
-              dispatch(
-                quizActions.updateCurrentQuiz(
-                  quiz.currentQuiz < quiz.allQuizzes.length - 1
-                    ? quiz.currentQuiz + 1
-                    : 0
-                )
-              );
-            }}
-          >
-            Next Quiz
-          </button>
-        </div>
+        )) || (
+          <div className="hidden sm:flex justify-between items-center mt-5">
+            <button
+              className="w-full mb-3 sm:mb-0 mr-5 bg-[#FF165D] text-white text-lg py-2 rounded-lg"
+              onClick={() => {
+                if (duration.timeLeft <= 0) {
+                  return;
+                }
+                dispatch(quizActions.setCurrentDirection(-1));
+                dispatch(
+                  quizActions.updateCurrentQuiz(
+                    quiz.currentQuiz > 0
+                      ? quiz.currentQuiz - 1
+                      : quiz.allQuizzes.length - 1
+                  )
+                );
+              }}
+            >
+              Previous Quiz
+            </button>
+            <button
+              className="w-full bg-[#FF165D] text-white text-lg py-2 rounded-lg"
+              onClick={() => {
+                if (duration.timeLeft <= 0) {
+                  return;
+                }
+                dispatch(quizActions.setCurrentDirection(1));
+                dispatch(
+                  quizActions.updateCurrentQuiz(
+                    quiz.currentQuiz < quiz.allQuizzes.length - 1
+                      ? quiz.currentQuiz + 1
+                      : 0
+                  )
+                );
+              }}
+            >
+              Next Quiz
+            </button>
+          </div>
+        )}
       </motion.div>
     </AnimatePresence>
   );
