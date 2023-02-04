@@ -21,7 +21,7 @@ export const QuizDisplay = () => {
           quiz.currentDirection === 1 ? "toRight_animate" : "toLeft_animate"
         }
         exit={quiz.currentDirection === 1 ? "toRight_exit" : "toLeft_exit"}
-        className="max-h-[60vh] sm:max-h-[90vh] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full sm:w-9/12 lg:w-8/12 xl:w-7/12 2xl:w-5/12 border-x-0 border-y rounded-0 sm:border border-[#FF165D] sm:rounded-md pb-6 px-2 sm:px-5"
+        className="max-h-[60vh] sm:max-h-[90vh] overflow-y-scroll no-scrollbar absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full sm:w-9/12 lg:w-8/12 xl:w-7/12 2xl:w-5/12 border-x-0 border-y rounded-0 sm:border border-[#FF165D] sm:rounded-md pb-6 px-2 sm:px-5"
       >
         <div className="flex sticky top-0 bg-[#160040] justify-between items-center py-4 px-2 sm:px-0 border-b border-b-[#FFFFFF]">
           <span className="text-[#FF165D] text-lg mr-8">

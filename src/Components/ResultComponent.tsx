@@ -21,7 +21,7 @@ export const Result = () => {
   }, [navigate, quiz]);
   return (
     <div className="bg-[#160040] min-h-screen max-h-screen h-auto py-10 overflow-y-scroll">
-      <div className="mx-auto w-full sm:w-9/12 lg:w-8/12 xl:w-7/12 2xl:w-5/12">
+      <div className="mx-auto w-11/12 sm:w-9/12 lg:w-8/12 xl:w-7/12 2xl:w-5/12">
         <h1 className="text-[#FF165D] text-3xl font-semibold text-center px-2">
           Here are the results!
         </h1>
