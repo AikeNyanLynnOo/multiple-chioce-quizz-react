@@ -103,7 +103,7 @@ export const Home = () => {
     }
     dispatch(modalActions.openModal("Loading"));
     dispatch(quizActions.setIsFetchLoading(true));
-    console.log("User Selected Categories -> " + category);
+    // console.log("User Selected Categories -> " + category);
     fetchQuestions({
       categories: category.join(","),
       limit: quiz.count,
@@ -115,7 +115,7 @@ export const Home = () => {
         dispatch(quizActions.setShuffledAnswers());
         dispatch(modalActions.setMessage("Questions successfully generated!"));
         dispatch(quizActions.setIsFetchLoading(false));
-        console.log("Questions obtained " + questions.length);
+        // console.log("Questions obtained " + questions.length);
       })
       .catch((err) => {
         dispatch(
