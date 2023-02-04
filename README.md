@@ -1,11 +1,24 @@
 ## Multiple Choice Quiz App
 
+### Choose Categories, Difficulty Level, Time you will take
 ![Design Captured](https://github.com/AikeNyanLynnOo/multiple-chioce-quizz-react/blob/main/public/captures/screencapture1.png "Choose Categories, Difficulty Level, Time you will take")
+
+### User choice result
 ![Design Captured](https://github.com/AikeNyanLynnOo/multiple-chioce-quizz-react/blob/main/public/captures/screencapture2.png "User Choice Result")
+
+### Quiz answering page display
 ![Design Captured](https://github.com/AikeNyanLynnOo/multiple-chioce-quizz-react/blob/main/public/captures/screencapture3.png "Quiz Display")
+
+### Quick go quiz panel
 ![Design Captured](https://github.com/AikeNyanLynnOo/multiple-chioce-quizz-react/blob/main/public/captures/screencapture4.png "Left Animate Quiz Panel")
+
+### Quizzes already answered are highlighted
 ![Design Captured](https://github.com/AikeNyanLynnOo/multiple-chioce-quizz-react/blob/main/public/captures/screencapture5.png "Quizzes Already Answered")
+
+### Results button when all questions are already answered
 ![Design Captured](https://github.com/AikeNyanLynnOo/multiple-chioce-quizz-react/blob/main/public/captures/screencapture6.png "See Results Button when all questions are already answered")
+
+### Result Page
 ![Design Captured](https://github.com/AikeNyanLynnOo/multiple-chioce-quizz-react/blob/main/public/captures/screencapture7.png "Result Page")
 
 ### Used Technologies
