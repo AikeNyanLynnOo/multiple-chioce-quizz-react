@@ -8,8 +8,11 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { durationActions } from "../redux/durationSlice";
+import { useDispatch } from "react-redux";
 
 export const Result = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const quiz = useSelector((state: MainState) => state.quiz);
 
@@ -103,6 +106,7 @@ export const Result = () => {
         <button
           className="w-full bg-[#FF165D] text-white text-lg py-2 rounded-lg"
           onClick={() => {
+            dispatch(durationActions.setTimer(null));
             navigate("/");
           }}
         >
