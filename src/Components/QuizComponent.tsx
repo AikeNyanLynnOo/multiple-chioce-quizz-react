@@ -96,7 +96,7 @@ export const Quiz = () => {
         variants={gridDrawerVariants}
         initial={drawerOpen === null ? "close" : drawerOpen ? "close" : "open"}
         animate={drawerOpen === null ? "" : drawerOpen ? "open" : "close"}
-        className="border relative z-10 bg-[#160040] border-[#FF165D] rounded-md pt-4  pb-4 px-3 md:px-5 mx-auto sm:mr-auto sm:ml-0 w-11/12 sm:w-5/12 lg:w-4/12 xl:w-3/12 2xl:w-52"
+        className="border relative z-10 bg-glass border-[#FF165D] rounded-md pt-4  pb-4 px-3 md:px-5 mx-auto sm:mr-auto sm:ml-0 w-11/12 sm:w-5/12 lg:w-4/12 xl:w-3/12 2xl:w-52"
       >
         <div className="flex justify-between items-center">
           <span className="text-[#FF165D] font-semibold text-lg">
@@ -118,7 +118,7 @@ export const Quiz = () => {
           {quiz.allQuizzes.filter((q) => q.userAnswer).length}/
           {quiz.allQuizzes.length}
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 my-10">
+        <div className="max-h-[30vh] overflow-y-scroll grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 my-10">
           {quiz.allQuizzes.map((quiz, index) => (
             <span
               key={index}
