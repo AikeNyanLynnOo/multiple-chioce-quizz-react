@@ -118,7 +118,7 @@ export const Quiz = () => {
           {quiz.allQuizzes.filter((q) => q.userAnswer).length}/
           {quiz.allQuizzes.length}
         </div>
-        <div className="max-h-[30vh] overflow-y-scroll grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 my-10">
+        <div className="max-h-[30vh] overflow-y-scroll no-scrollbar grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 my-10">
           {quiz.allQuizzes.map((quiz, index) => (
             <span
               key={index}
